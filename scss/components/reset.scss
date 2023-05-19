@@ -1,0 +1,219 @@
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+html {
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-overflow-scrolling: touch;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+body {
+	color: $text;
+	font-family: $font;
+	font-weight: 400;
+	height: auto;
+	min-height: 100vh;
+	position: relative;
+	@include flexbox();
+	@include flex-direction(column);
+	::-moz-selection {
+		background: $a;
+		color: #ffffff;
+	}
+	::selection {
+		background: $a;
+		color: #ffffff;
+	}
+}
+#wrap {
+	@include flex(1 0 auto);
+}
+mark {
+	background: none;
+}
+/* ==========================================================================
+   FORMS & TABLE & NAVIGATION
+   ========================================================================== */
+input,
+textarea,
+select {
+	outline: 0 none;
+	padding: 0 10px;
+	@include transition(all, 0.2s, ease-in-out);
+}
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+textarea {
+	border: 1px solid #e1e1e1;
+	background: #fff;
+	color: #222222;
+	font-family: $font;
+	font-size: 16px;
+	height: $inputH;
+	padding: 0 5px 0 10px;
+	width: 100%;
+	@include placeholder {
+		color: #4c4c4c;
+		font-family: $font;
+		font-size: 16px;
+		opacity: 1;
+	}
+	&:focus {
+		border-color: $a;
+	}
+}
+textarea {
+	resize: none;
+	height: 100px;
+	padding: 10px;
+}
+button[disabled],
+html input[disabled] {
+	cursor: default;
+}
+input[type='search'],
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button {
+	-webkit-appearance: none !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+}
+ul {
+	list-style: none;
+}
+ol {
+	list-style: decimal;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* ==========================================================================
+   TYPOGRAPHY
+   ========================================================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 400;
+	font-family: $font1;
+}
+
+h1 {
+	font-size: 60px;
+	@include for-size(1024px) {
+		font-size: 40px;
+	}
+	@include for-size(768px) {
+		font-size: 34px;
+	}
+	@include for-size(576px) {
+		font-size: 30px;
+	}
+}
+
+h2 {
+	font-size: 40px;
+	@include for-size(1024px) {
+		font-size: 36px;
+	}
+	@include for-size(768px) {
+		font-size: 32px;
+	}
+	@include for-size(576px) {
+		font-size: 28px;
+	}
+}
+
+h3 {
+	font-size: 36px;
+	@include for-size(1024px) {
+		font-size: 32px;
+	}
+	@include for-size(768px) {
+		font-size: 30px;
+	}
+	@include for-size(576px) {
+		font-size: 26px;
+	}
+}
+
+h4 {
+	font-size: 24px;
+	@include for-size(768px) {
+		font-size: 22px;
+	}
+	@include for-size(576px) {
+		font-size: 20px;
+	}
+}
+
+p {
+	padding-bottom: 20px;
+	line-height: 1.5;
+	font-size: 18px;
+	@include for-size(768px) {
+		font-size: 16px;
+	}
+}
+a {
+	color: $link;
+	outline: 0;
+	text-decoration: none;
+	@include transition();
+	&:hover {
+		outline: 0;
+		text-decoration: underline;
+	}
+}
+img {
+	border: 0;
+	height: auto;
+	max-width: 100%;
+	vertical-align: top;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+strong,
+b {
+	font-weight: 700;
+}
+i {
+	font-style: normal;
+}
+@media screen and (min-width: $row) {
+	::-webkit-scrollbar {
+		width: 13px;
+	}
+	::-webkit-scrollbar-track {
+		background-color: #eaeaea;
+		border-left: 1px solid #cccccc;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: $a;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: darken($a, 5%);
+	}
+}
