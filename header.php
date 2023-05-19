@@ -35,24 +35,14 @@
 				wp_nav_menu( $main_nav );
 				?>
             </nav>
-            <div class="icons">
-                <div class="icon search-box">
-                    <i class="fa fa-search search-icon" aria-hidden="true"></i>
-                    <?php get_search_form(); ?>
-                </div>
-                <a href="#" class="icon account">
-                    <img src="<?php echo theme(); ?>/img/user-icon.svg" alt="user">
-                    <?php get_search_form(); ?>
-                </a>
-                <nav class="mobile-main-menu">
-                    <?php wp_nav_menu( array(
-                        'theme_location' => 'main_menu',
-                        'menu'           => '',
-                        'container'      => false,
-                        'menu_class'     => 'level_a'
-                    ) ); ?>
-                </nav>
-                <div class="menu-burger"></div>
-            </div>
+            <nav class="mobile-main-menu">
+                <?php wp_nav_menu( array(
+                    'theme_location' => 'main_menu',
+                    'menu'           => '',
+                    'container'      => false,
+                    'menu_class'     => 'level_a'
+                ) ); ?>
+            </nav>
+            <div class="menu-burger"></div>
         </div>
     </header>
