@@ -33,9 +33,6 @@ $.fn.clickOff = function (callback, selfDestroy) {
 $.fn.replaceClass = function (pFromClass, pToClass) {
 	return this.removeClass(pFromClass).addClass(pToClass);
 };
-$.fn.replaceClass = function (pFromClass, pToClass) {
-	return this.removeClass(pFromClass).addClass(pToClass);
-};
 //Check element in Viewport
 $.fn.isInViewport = function () {
 	var elementTop = $(this).offset().top;

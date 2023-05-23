@@ -37,16 +37,13 @@ $yelp: #d32323;
 //custom icon fonts
 // @include declare-font('font-name', 'font-layout', font-weight, font-style);
 $font: 'Montserrat', sans-serif;
-$font1: 'Questrial', sans-serif;
 
 //Montserrat Font
-@include declare-font('Montserrat', 'Montserrat-Bold', 700);
-@include declare-font('Montserrat', 'Montserrat-SemiBold', 600);
-@include declare-font('Montserrat', 'Montserrat-Medium', 500);
-@include declare-font('Montserrat', 'Montserrat-Regular', 400);
+// @include declare-font('Montserrat', 'Montserrat-Bold', 700);
+// @include declare-font('Montserrat', 'Montserrat-SemiBold', 600);
+// @include declare-font('Montserrat', 'Montserrat-Medium', 500);
+// @include declare-font('Montserrat', 'Montserrat-Regular', 400);
 
-//Questrial Font
-@include declare-font('Questrial', 'Questrial-Regular', 400);
 /* MAIN  FILES
    ========================================================================== */
 @import 'components/reset';
