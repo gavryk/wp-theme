@@ -47,12 +47,7 @@ $font: 'Montserrat', sans-serif;
 /* MAIN  FILES
    ========================================================================== */
 @import 'components/reset';
-//flexbox
 @import 'components/flexo';
-//woocommerce basic style
-//@import 'components/11_woocommerce';
-// global elements (buttons, etc..)
 @import 'components/global';
-// style for custom page
 @import 'components/pages';
 @import 'components/code';
