@@ -457,10 +457,11 @@ function some() {
     if($some) {
         $soc .= '<div class="some">';
         foreach($some as $sm) {
-            $soc .= '<a class="icon-'.$sm['icon'].'" target="_blank" href="'.$sm['link'].'" rel="nofollow"></a>';
+            $soc .= '<a class="fa fa-'.$sm['icon'].'" target="_blank" href="'.$sm['url'].'" rel="nofollow"></a>';
         }
         $soc .= '</div>';
     }
     return $soc;
+		// var_dump($soc);
 }
 add_shortcode("social", "some");
