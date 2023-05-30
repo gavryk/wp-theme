@@ -159,20 +159,7 @@
 /* ==========================================================================
    WYSIWYG
    ========================================================================== */
-.wysiwyg {
-	h1 {
-		font-size: 20px;
-		line-height: 1;
-		margin-bottom: 10px;
-		padding-bottom: 5px;
-		text-transform: uppercase;
-	}
-	p {
-		font-size: 15px;
-		line-height: 1.4;
-		padding-bottom: 20px;
-		word-break: break-word;
-	}
+.wys {
 	ul {
 		margin-left: 30px;
 		padding-bottom: 20px;
@@ -437,11 +424,6 @@ div.wpcf7 form.submitting .wpcf7-spinner {
 
 #top {
 	min-height: 500px;
-	text-align: center;
-	color: #fff;
-	h1 {
-		font-size: 60px;
-	}
 }
 
 $lineColor: #333;
