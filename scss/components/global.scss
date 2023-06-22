@@ -610,3 +610,49 @@ $lineColor: #333;
 		margin: 0 0 20px;
 	}
 }
+
+.numbered_pagination {
+	position: relative;
+	text-align: center;
+	grid-column-start: 1;
+	grid-column-end: -1;
+	a,
+	span {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 30px;
+		height: 30px;
+		text-decoration: none;
+		border-radius: 5px;
+		font-size: 18px;
+		color: #1d1d1d;
+		svg {
+			path {
+				@include transition();
+			}
+		}
+		&.current {
+			background-color: $a;
+			color: #fff;
+		}
+		&:hover {
+			background-color: $a;
+			color: #fff;
+			&.next,
+			&.prev {
+				svg {
+					path {
+						fill: #fff;
+					}
+				}
+			}
+		}
+		&.dots,
+		&.next,
+		&.prev {
+			color: #1d1d1d;
+			border-bottom: 1px solid transparent;
+		}
+	}
+}

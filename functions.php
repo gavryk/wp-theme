@@ -31,9 +31,9 @@ add_action( 'after_switch_theme', 'set_default_image_sizes' );
 /* REGISTER MENUS
    ========================================================================== */
 register_nav_menus( array(
-	'main_menu'   => 'Main navigation',
+	'main_menu' => 'Main navigation',
 	'second_menu' => 'Second navigation',
-	'foot_menu'   => 'Footer navigation'
+	'foot_menu' => 'Footer navigation'
 ) );
 
 function wp_get_attachment( $attachment_id ) {
@@ -49,80 +49,93 @@ function wp_get_attachment( $attachment_id ) {
 	);
 }
 
-add_filter('wp_check_filetype_and_ext', 'ignore_upload_ext', 10, 4);
-function ignore_upload_ext($checked, $file, $filename, $mimes)
-{
-    //we only need to worry if WP failed the first pass
-    if (!$checked['type']) {
-        //rebuild the type info
-        $wp_filetype = wp_check_filetype($filename, $mimes);
-        $ext = $wp_filetype['ext'];
-        $type = $wp_filetype['type'];
-        $proper_filename = $filename;
-        //preserve failure for non-svg images
-        if ($type && 0 === strpos($type, 'image/') && $ext !== 'svg') {
-            $ext = $type = false;
-        }
-        //everything else gets an OK, so e.g. we've disabled the error-prone finfo-related checks WP just went through. whether or not the upload will be allowed depends on the <code>upload_mimes</code>, etc.
-        $checked = compact('ext', 'type', 'proper_filename');
-    }
-    return $checked;
+add_filter( 'wp_check_filetype_and_ext', 'ignore_upload_ext', 10, 4 );
+
+function ignore_upload_ext( $checked, $file, $filename, $mimes ) {
+	//we only need to worry if WP failed the first pass
+	if ( ! $checked['type'] ) {
+		//rebuild the type info
+		$wp_filetype = wp_check_filetype( $filename, $mimes );
+		$ext = $wp_filetype['ext'];
+		$type = $wp_filetype['type'];
+		$proper_filename = $filename;
+		//preserve failure for non-svg images
+		if ( $type && 0 === strpos( $type, 'image/' ) && $ext !== 'svg' ) {
+			$ext = $type = false;
+		}
+		//everything else gets an OK, so e.g. we've disabled the error-prone finfo-related checks WP just went through. whether or not the upload will be allowed depends on the <code>upload_mimes</code>, etc.
+		$checked = compact( 'ext', 'type', 'proper_filename' );
+	}
+	return $checked;
 }
 
 /**
  * Add file support for media
  *
  */
-function svg_myme_types($mime_types)
-{
-    $mime_types['svg'] = 'image/svg+xml'; //Adding svg extension
-    return $mime_types;
+function svg_myme_types( $mime_types ) {
+	$mime_types['svg'] = 'image/svg+xml'; //Adding svg extension
+	return $mime_types;
 }
-add_filter('upload_mimes', 'svg_myme_types', 1, 1);
+add_filter( 'upload_mimes', 'svg_myme_types', 1, 1 );
+
+function numbered_pagination() {
+	global $wp_query;
+	$big = 999999999; // need an unlikely integer
+	echo paginate_links( array(
+		'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+		'format' => '?sf_paged=%#%',
+		'current' => max(
+			1, get_query_var( 'paged' ) ),
+		'total' => $wp_query->max_num_pages,
+		'prev_text' => __( '<svg width="26" height="8" viewBox="0 0 26 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.646446 4.35355C0.451185 4.15829 0.451185 3.84171 0.646446 3.64644L3.82843 0.464464C4.02369 0.269202 4.34027 0.269202 4.53553 0.464464C4.7308 0.659726 4.7308 0.976309 4.53553 1.17157L1.70711 4L4.53553 6.82843C4.7308 7.02369 4.7308 7.34027 4.53553 7.53553C4.34027 7.73079 4.02369 7.73079 3.82843 7.53553L0.646446 4.35355ZM26 4.5L1 4.5L1 3.5L26 3.5L26 4.5Z" fill="#1D1D1D"/></svg>', 'textdomain' ),
+		'next_text' => __( '<svg width="26" height="8" viewBox="0 0 26 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M25.3536 4.35355C25.5488 4.15829 25.5488 3.84171 25.3536 3.64644L22.1716 0.464464C21.9763 0.269202 21.6597 0.269202 21.4645 0.464464C21.2692 0.659726 21.2692 0.976309 21.4645 1.17157L24.2929 4L21.4645 6.82843C21.2692 7.02369 21.2692 7.34027 21.4645 7.53553C21.6597 7.73079 21.9763 7.73079 22.1716 7.53553L25.3536 4.35355ZM4.37114e-08 4.5L25 4.5L25 3.5L-4.37114e-08 3.5L4.37114e-08 4.5Z" fill="#1D1D1D"/></svg>', 'textdomain' ),
+	) );
+}
 
 // [button link='URL' text='TEXT' target='_blank' class='CLASS']
 // or [button link='URL' target='_blank' class='CLASS']TEXT[/button]
 // or fancybox [button data-src='URL' text='TEXT' class='CLASS']
 function content_btn( $attr, $content ) {
-    $attr = shortcode_atts( array(
-        'text'     => 'Read More',
-        'link'     => site_url(),
-        'data-src' => '',
-        'class'    => false,
-        'target'   => '_self'
-    ), $attr );
+	$attr = shortcode_atts( array(
+		'text' => 'Read More',
+		'link' => site_url(),
+		'data-src' => '',
+		'class' => false,
+		'target' => '_self'
+	), $attr );
 
-    $btn_content = $content ? $content : $attr['text'];
-    $btn_class   = $attr['class'] ? ' ' . $attr['class'] : '';
-    $btn_target  = $attr['target'] ? 'target="' . $attr['target'] . '"' : '';
-    $btn_rel     = $attr['target'] == '_blank' ? 'rel="noopener"' : '';
+	$btn_content = $content ? $content : $attr['text'];
+	$btn_class = $attr['class'] ? ' ' . $attr['class'] : '';
+	$btn_target = $attr['target'] ? 'target="' . $attr['target'] . '"' : '';
+	$btn_rel = $attr['target'] == '_blank' ? 'rel="noopener"' : '';
 
-    if ( ! ! $attr['data-src'] ) {
-        $result = '<a data-fancybox data-src="' . $attr['data-src'] . '" href="javascript:;" class="btn' . $btn_class . '">' . $btn_content . '</a>';
-    } else {
-        $result = '<a href="' . $attr['link'] . '" ' . $btn_rel . ' class="btn' . $btn_class . '" ' . $btn_target . '>' . $btn_content . '</a>';
-    }
+	if ( ! ! $attr['data-src'] ) {
+		$result = '<a data-fancybox data-src="' . $attr['data-src'] . '" href="javascript:;" class="btn' . $btn_class . '">' . $btn_content . '</a>';
+	} else {
+		$result = '<a href="' . $attr['link'] . '" ' . $btn_rel . ' class="btn' . $btn_class . '" ' . $btn_target . '>' . $btn_content . '</a>';
+	}
 
-    return $result;
+	return $result;
 }
 
 add_shortcode( "button", "content_btn" );
 
-function imgSvg($imageUrl) {
-    $extension = pathinfo($imageUrl, PATHINFO_EXTENSION);
-    
-    $arrContextOptions=array(
-            "ssl"=>array(
-                "verify_peer"=>false,
-                "verify_peer_name"=>false,
-            ),
-        );
-    if (strtolower($extension) === 'svg') {
-        
-        $svgCode = file_get_contents($imageUrl, false, stream_context_create($arrContextOptions));
-        return $svgCode;
-    } else {
-        $imgTag = '<img src="' . $imageUrl . '" alt="Image">';
-        return $imgTag;
-    }
+function imgSvg( $imageUrl ) {
+	$extension = pathinfo( $imageUrl, PATHINFO_EXTENSION );
+
+	$arrContextOptions = array(
+		"ssl" => array(
+			"verify_peer" => false,
+			"verify_peer_name" => false,
+		),
+	);
+	if ( strtolower( $extension ) === 'svg' ) {
+
+		$svgCode = file_get_contents( $imageUrl, false, stream_context_create( $arrContextOptions ) );
+		return $svgCode;
+	} else {
+		$imgTag = '<img src="' . $imageUrl . '" alt="Image">';
+		return $imgTag;
+	}
 }
