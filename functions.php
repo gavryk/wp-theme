@@ -3,7 +3,7 @@ define( 'HOME_PAGE_ID', get_option( 'page_on_front' ) );
 define( 'BLOG_ID', get_option( 'page_for_posts' ) );
 define( 'POSTS_PER_PAGE', get_option( 'posts_per_page' ) );
 /* INCLUD CUSTOM FUNCTIONS
-   ========================================================================== */
+	 ========================================================================== */
 // Recommended plugins installer
 require_once 'include/plugins/init.php';
 // Custom functionality
@@ -29,7 +29,7 @@ add_action( 'after_switch_theme', 'set_default_image_sizes' );
 
 
 /* REGISTER MENUS
-   ========================================================================== */
+	 ========================================================================== */
 register_nav_menus( array(
 	'main_menu' => 'Main navigation',
 	'second_menu' => 'Second navigation',
@@ -137,5 +137,22 @@ function imgSvg( $imageUrl ) {
 	} else {
 		$imgTag = '<img src="' . $imageUrl . '" alt="Image">';
 		return $imgTag;
+	}
+}
+
+function get_img_srcset( $image_id, $image_size, $max_width ) {
+
+	// check the image ID is not blank
+	if ( $image_id != '' ) {
+
+		// set the default src image size
+		$image_src = wp_get_attachment_image_url( $image_id, $image_size );
+
+		// set the srcset with various image sizes
+		$image_srcset = wp_get_attachment_image_srcset( $image_id, $image_size );
+
+		// generate the markup for the responsive image
+		echo 'src="' . $image_src . '" srcset="' . $image_srcset . '" sizes="(max-width: ' . $max_width . ') 100vw, ' . $max_width . '"';
+
 	}
 }
