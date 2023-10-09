@@ -1,18 +1,21 @@
 /* ==========================================================================
    HELPERS
    ========================================================================== */
-.wrap {
-	margin: 0 auto;
-	width: $row;
-	max-width: 94%;
-	position: relative;
+$baseRows: (
+	row1280: 1280px,
+	row1070: 1070px,
+	row: 1140px,
+);
+
+@each $name, $val in $baseRows {
+	.#{$name} {
+		margin: 0 auto;
+		width: #{$val};
+		max-width: 94%;
+		position: relative;
+	}
 }
-.row1540 {
-	margin: 0 auto;
-	width: $row1540;
-	max-width: 96%;
-	position: relative;
-}
+
 #content {
 	padding: 40px 0;
 	@include for-size(row) {

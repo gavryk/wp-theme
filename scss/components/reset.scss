@@ -201,7 +201,7 @@ b {
 i {
 	font-style: normal;
 }
-@media screen and (min-width: $row) {
+@media screen and (min-width: 1140px) {
 	::-webkit-scrollbar {
 		width: 7px;
 	}
