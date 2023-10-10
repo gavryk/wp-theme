@@ -7,12 +7,35 @@ $baseRows: (
 	row: 1140px,
 );
 
+$spaces: (
+	//Margins
+	m-space: 40px 0,
+	m-space-md: 60px 0,
+	m-space-xl: 80px 0,
+	m-space-lg: 100px 0,
+	//Paddings
+	p-space: 40px 0,
+	p-space-md: 60px 0,
+	p-space-xl: 80px 0,
+	p-space-lg: 100px 0
+);
+
 @each $name, $val in $baseRows {
 	.#{$name} {
 		margin: 0 auto;
 		width: #{$val};
 		max-width: 94%;
 		position: relative;
+	}
+}
+
+@each $name, $val in $spaces {
+	.#{$name} {
+		@if str-index($name, 'p-') == 1 {
+			padding: #{$val};
+		} @else if str-index($name, 'm-') == 1 {
+			margin: #{$val};
+		}
 	}
 }
 
