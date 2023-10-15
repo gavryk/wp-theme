@@ -20,12 +20,14 @@ $spaces: (
 	p-space-lg: 100px 0
 );
 
-@each $name, $val in $baseRows {
-	.#{$name} {
-		margin: 0 auto;
-		width: #{$val};
-		max-width: 94%;
-		position: relative;
+.container {
+	margin: 0 auto;
+	max-width: 94%;
+	position: relative;
+	@each $name, $val in $baseRows {
+		&.#{$name} {
+			width: #{$val};
+		}
 	}
 }
 
