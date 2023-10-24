@@ -554,7 +554,7 @@ $lineColor: #333;
 .desctop_hide {
 	display: none;
 }
-@include for-size(row) {
+@include for-size(1140px) {
 	.mobile_hide {
 		display: none;
 	}
