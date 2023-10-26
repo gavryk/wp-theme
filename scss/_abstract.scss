@@ -39,5 +39,56 @@ $spaces: (
 		} @else if str-index($name, 'm-') == 1 {
 			margin: #{$val};
 		}
+
+		@if str-index($name, 'md') {
+			@include for-size(576px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 40px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 40px 0;
+				}
+			}
+		}
+
+		@if str-index($name, 'xl') {
+			@include for-size(768px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 60px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 60px 0;
+				}
+			}
+			@include for-size(576px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 40px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 40px 0;
+				}
+			}
+		}
+
+		@if str-index($name, 'lg') {
+			@include for-size(1024px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 80px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 80px 0;
+				}
+			}
+			@include for-size(768px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 60px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 60px 0;
+				}
+			}
+			@include for-size(576px) {
+				@if str-index($name, 'p-') == 1 {
+					padding: 40px 0;
+				} @else if str-index($name, 'm-') == 1 {
+					margin: 40px 0;
+				}
+			}
+		}
 	}
 }
