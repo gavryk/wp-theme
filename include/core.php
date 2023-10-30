@@ -20,45 +20,46 @@ function carc_style_js() {
 		wp_deregister_script( 'jquery' );
 		wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' );
 		wp_enqueue_script( 'jquery' );
-	};
-// wp_enqueue_script('googlemaps', '//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false', array(), '', FALSE);
+	}
+	;
+	// wp_enqueue_script('googlemaps', '//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false', array(), '', FALSE);
 	wp_enqueue_script( 'libs', get_template_directory_uri() . '/js/lib.js', array( 'jquery' ), '1.0', true );
 	wp_enqueue_script( 'init', get_template_directory_uri() . '/js/init.js', array( 'jquery' ), '1.0', true );
 	wp_enqueue_style( 'plugins', get_template_directory_uri() . '/scss/components/lib.css' );
 	wp_enqueue_style( 'main', get_template_directory_uri() . '/scss/main.css' );
-//wp_enqueue_style('style', get_template_directory_uri() . '/scss/main.css?uid='.md5(uniqid(rand(),1)));
+	//wp_enqueue_style('style', get_template_directory_uri() . '/scss/main.css?uid='.md5(uniqid(rand(),1)));
 }
 
 add_action( 'wp_enqueue_scripts', 'carc_style_js' );
 
 /* Register multiple widgets
-   ========================================================================== */
+	 ========================================================================== */
 $reg_sidebars = array(
-	'page_sidebar'   => 'Page Sidebar',
-	'blog_sidebar'   => 'Blog Sidebar',
+	'page_sidebar' => 'Page Sidebar',
+	'blog_sidebar' => 'Blog Sidebar',
 	'footer_sidebar' => 'Footer Area',
 );
 foreach ( $reg_sidebars as $id => $name ) {
 	register_sidebar(
 		array(
-			'name'          => __( $name ),
-			'id'            => $id,
+			'name' => __( $name ),
+			'id' => $id,
 			'before_widget' => '<div class="widget cfx %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<mark class="widget-title">',
-			'after_title'   => '</mark>',
+			'after_widget' => '</div>',
+			'before_title' => '<mark class="widget-title">',
+			'after_title' => '</mark>',
 		)
 	);
 }
 
 /* Add support for post thumbnails
-   ========================================================================== */
+	 ========================================================================== */
 
 add_theme_support( 'post-thumbnails' );
 
 
 /* Add SVG in Media Uploader
-   ========================================================================== */
+	 ========================================================================== */
 function wpa_mime_types( $mimes ) {
 	$mimes['svg'] = 'image/svg+xml';
 
@@ -73,14 +74,14 @@ function wpa_fix_svg_thumb() {
 add_action( 'admin_head', 'wpa_fix_svg_thumb' );
 
 /* Redirect to homepage from login logo
-   ========================================================================== */
+	 ========================================================================== */
 add_filter( 'login_headerurl', 'custom_loginlogo_url' );
 function custom_loginlogo_url() {
 	return site_url();
 }
 
 /* Set permalink structure to %postname%
-   ========================================================================== */
+	 ========================================================================== */
 function carc_permalink_structure() {
 	//Set permalink settings
 	global $wp_rewrite;
@@ -89,14 +90,14 @@ function carc_permalink_structure() {
 
 add_action( 'after_switch_theme', 'carc_permalink_structure' );
 /* Add class to empty paragraph
-   ========================================================================== */
+	 ========================================================================== */
 function carc_empty_p( $content ) {
 	return str_replace( '<p>&nbsp;</p>', '<p class="empty_paragraph">&nbsp;</p>', $content );
 }
 
 add_filter( 'the_content', 'carc_empty_p', 99 );
 /* Adding Page URL to the Pages in Admin Table
-   ========================================================================== */
+	 ========================================================================== */
 function carc_url_column( $defaults ) {
 	$defaults['url'] = 'URL';
 
@@ -113,14 +114,14 @@ add_filter( 'manage_page_posts_columns', 'carc_url_column', 10 );
 add_action( 'manage_page_posts_custom_column', 'carc_add_url_column', 10, 2 );
 
 /* Update wp-scss setings
-   ========================================================================== */
+	 ========================================================================== */
 if ( class_exists( 'Wp_Scss_Settings' ) ) {
 	$wpscss = get_option( 'wpscss_options' );
 	if ( empty( $wpscss['css_dir'] ) && empty( $wpscss['scss_dir'] ) ) {
 		update_option( 'wpscss_options', array(
-			'css_dir'  => '/scss/',
+			'css_dir' => '/scss/',
 			'scss_dir' => '/scss/',
-//			'compiling_options' => 'Leafo\ScssPhp\Formatter\Expanded'
+			//			'compiling_options' => 'Leafo\ScssPhp\Formatter\Expanded'
 		) );
 	}
 }
@@ -134,7 +135,7 @@ Remove Unnecessary parts from Wordpress core
 - <p> and <br /> from Contact Form 7
 ========================================================================== */
 /* Remove Unnecessary Code from wp_head
-   ========================================================================== */
+	 ========================================================================== */
 remove_action( 'wp_head', 'rsd_link' ); // Really Simple Discovery
 remove_action( 'wp_head', 'wlwmanifest_link' ); // Windows Live Writer
 remove_action( 'wp_head', 'wp_generator' ); // WordPress Generator
@@ -169,7 +170,7 @@ function remove_json_api() {
 
 add_action( 'after_setup_theme', 'remove_json_api' );
 /* Remove wp version param from any enqueued scripts
-   ========================================================================== */
+	 ========================================================================== */
 function vc_remove_wp_ver_css_js( $src ) {
 	if ( strpos( $src, 'ver=' ) ) {
 		$src = remove_query_arg( 'ver', $src );
@@ -181,7 +182,7 @@ function vc_remove_wp_ver_css_js( $src ) {
 add_filter( 'style_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
 add_filter( 'script_loader_src', 'vc_remove_wp_ver_css_js', 9999 );
 /* Remove dashboard wigets
-   ========================================================================== */
+	 ========================================================================== */
 function remove_dash_widgets() {
 	remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
 	remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
@@ -192,7 +193,7 @@ function remove_dash_widgets() {
 
 add_action( 'admin_init', 'remove_dash_widgets' );
 /* Remove default wigets
-   ========================================================================== */
+	 ========================================================================== */
 function remove_default_widgets() {
 	unregister_widget( 'WP_Widget_Archives' );
 	unregister_widget( 'WP_Widget_Calendar' );
@@ -211,7 +212,7 @@ function remove_default_widgets() {
 
 add_action( 'widgets_init', 'remove_default_widgets' );
 /* Remove WordPress logo & pages from Admin bar
-   ========================================================================== */
+	 ========================================================================== */
 function annointed_admin_bar_remove() {
 	global $wp_admin_bar;
 	$wp_admin_bar->remove_menu( 'wp-logo' );
@@ -220,13 +221,13 @@ function annointed_admin_bar_remove() {
 add_action( 'wp_before_admin_bar_render', 'annointed_admin_bar_remove', 0 );
 remove_action( 'welcome_panel', 'wp_welcome_panel' );
 /*   Remove <p> and <br /> from Contact Form 7
-   ========================================================================== */
+	 ========================================================================== */
 if ( defined( 'WPCF7_VERSION' ) ) {
 	function maybe_reset_autop( $form ) {
 		$form_instance = WPCF7_ContactForm::get_current();
-		$manager       = WPCF7_FormTagsManager::get_instance();
-		$form_meta     = get_post_meta( $form_instance->id(), '_form', true );
-		$form          = $manager->replace_all( $form_meta );
+		$manager = WPCF7_FormTagsManager::get_instance();
+		$form_meta = get_post_meta( $form_instance->id(), '_form', true );
+		$form = $manager->replace_all( $form_meta );
 		$form_instance->set_properties( array(
 			'form' => $form
 		) );
@@ -243,7 +244,7 @@ CUSTOM STYLE IN ADMIN PANEL
 - Color scheme "Midnight" set as default
 ========================================================================== */
 /* Custom logo on login page
-   ========================================================================== */
+	 ========================================================================== */
 add_action( 'login_head', 'namespace_login_style' );
 function namespace_login_style() {
 	echo '<style>.login h1 a { background-image: url( ' . get_template_directory_uri() . '/img/login-logo.png ) !important;height: 135px!important; }</style>';
@@ -251,35 +252,40 @@ function namespace_login_style() {
 
 
 /* Change admin post/page color by status – draft, pending, future, private
-   ========================================================================== */
+	 ========================================================================== */
 function c_css() { ?>
-    <style>
-        .status-draft {
-            background: #E6E6E6 !important;
-        }
-        .status-pending {
-            background: #E2F0FF !important;
-        }
-        .status-future {
-            background: #C6EBF5 !important;
-        }
-        .status-private {
-            background: #F2D46F;
-        }
-        #toplevel_page_edit-post_type-acf-field-group {
-            border-top: 1px solid #ccc !important;
-        }
-        .acf-repeater > .acf-table > .ui-sortable > .acf-row:nth-child(even) > .order {
-            color: #fff !important;
-            background-color: #777 !important;
-        }
-    </style>
+	<style>
+		.status-draft {
+			background: #E6E6E6 !important;
+		}
+
+		.status-pending {
+			background: #E2F0FF !important;
+		}
+
+		.status-future {
+			background: #C6EBF5 !important;
+		}
+
+		.status-private {
+			background: #F2D46F;
+		}
+
+		#toplevel_page_edit-post_type-acf-field-group {
+			border-top: 1px solid #ccc !important;
+		}
+
+		.acf-repeater>.acf-table>.ui-sortable>.acf-row:nth-child(even)>.order {
+			color: #fff !important;
+			background-color: #777 !important;
+		}
+	</style>
 	<?php
 }
 
 add_action( 'admin_footer', 'c_css' );
 /* Color scheme "Midnight" set as default
-   ========================================================================== */
+	 ========================================================================== */
 function midnight_theme( $color_scheme ) {
 	global $_wp_admin_css_colors;
 	if ( 'classic' == $color_scheme || 'fresh' == $color_scheme ) {
@@ -299,15 +305,15 @@ CUSTOM FUNCTIONS
 - Button Shortcode
 ========================================================================== */
 /* Body class
-   ========================================================================== */
+	 ========================================================================== */
 function wpa_body_classes( $classes ) {
 	if ( is_page() ) {
 		global $post;
 		$temp = get_page_template();
 		if ( $temp != null ) {
-			$path      = pathinfo( $temp );
-			$tmp       = $path['filename'] . "." . $path['extension'];
-			$tn        = str_replace( ".php", "", $tmp );
+			$path = pathinfo( $temp );
+			$tmp = $path['filename'] . "." . $path['extension'];
+			$tn = str_replace( ".php", "", $tmp );
 			$classes[] = $tn;
 		}
 		foreach ( $classes as $k => $v ) {
@@ -362,7 +368,7 @@ function wpa_body_classes( $classes ) {
 		$classes[] = 'opera';
 		preg_match( "/Opera\/(\d.\d)/si", $browser, $matches );
 		$op_version = 'op' . str_replace( '.', '-', $matches[1] );
-		$classes[]  = $op_version;
+		$classes[] = $op_version;
 	} elseif ( preg_match( "/MSIE/", $browser ) ) {
 		$classes[] = 'msie';
 		if ( preg_match( "/MSIE 6.0/", $browser ) ) {
@@ -378,7 +384,7 @@ function wpa_body_classes( $classes ) {
 		$classes[] = 'firefox';
 		preg_match( "/Firefox\/(\d)/si", $browser, $matches );
 		$ff_version = 'ff' . str_replace( '.', '-', $matches[1] );
-		$classes[]  = $ff_version;
+		$classes[] = $ff_version;
 	} else {
 		$classes[] = 'unknown-browser';
 	}
@@ -392,7 +398,7 @@ function wpa_body_classes( $classes ) {
 
 add_filter( 'body_class', 'wpa_body_classes' );
 /*  WP Title
-   ========================================================================== */
+	 ========================================================================== */
 function wpa_title() {
 	global $post;
 	if ( ! defined( 'WPSEO_VERSION' ) ) {
@@ -413,13 +419,13 @@ function wpa_title() {
 }
 
 /* Short theme url
-   ========================================================================== */
+	 ========================================================================== */
 function theme() {
 	return get_stylesheet_directory_uri();
 }
 
 /* Get Image Size by ID -  echo  image_src( get_field('top_background') , 'medium', true );
-   ========================================================================== */
+	 ========================================================================== */
 function image_src( $id, $size = 'full', $background_image = false, $height = false ) {
 	if ( $image = wp_get_attachment_image_src( $id, $size, true ) ) {
 		return $background_image ? 'background-image: url(\'' . $image[0] . '\');' . ( $height ? 'height:' . $image[2] . 'px' : '' ) : $image[0];
@@ -427,10 +433,10 @@ function image_src( $id, $size = 'full', $background_image = false, $height = fa
 }
 
 /* Button Shortcode  [button link="#"  class="alignleft" target="_blank"]Align left button[/button]
-   ========================================================================== */
+	 ========================================================================== */
 function sButton( $atts, $content = null ) {
 	extract( shortcode_atts( array(
-		'link'  => '#',
+		'link' => '#',
 		'class' => 'none',
 		'target' => 'self',
 	), $atts ) );
@@ -441,10 +447,10 @@ function sButton( $atts, $content = null ) {
 add_shortcode( 'button', 'sButton' );
 
 /* post thumbnail
-   ========================================================================== */
-function post_img( $size ) {
+	 ========================================================================== */
+function post_img( $size, $id ) {
 	if ( has_post_thumbnail() ) {
-		the_post_thumbnail_url( $size );
+		echo get_the_post_thumbnail_url( $id, $size );
 	} else {
 		echo get_stylesheet_directory_uri() . '/img/holder.png';
 	}
@@ -452,16 +458,16 @@ function post_img( $size ) {
 
 /* Social Media Links */
 function some() {
-    $some = get_field('some', 'option');
-    $soc = '';
-    if($some) {
-        $soc .= '<div class="some">';
-        foreach($some as $sm) {
-            $soc .= '<a class="fa fa-'.$sm['icon'].'" target="_blank" href="'.$sm['url'].'" rel="nofollow"></a>';
-        }
-        $soc .= '</div>';
-    }
-    return $soc;
-		// var_dump($soc);
+	$some = get_field( 'some', 'option' );
+	$soc = '';
+	if ( $some ) {
+		$soc .= '<div class="some">';
+		foreach ( $some as $sm ) {
+			$soc .= '<a class="fa fa-' . $sm['icon'] . '" target="_blank" href="' . $sm['url'] . '" rel="nofollow"></a>';
+		}
+		$soc .= '</div>';
+	}
+	return $soc;
+	// var_dump($soc);
 }
-add_shortcode("social", "some");
+add_shortcode( "social", "some" );
