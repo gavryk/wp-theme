@@ -449,7 +449,7 @@ add_shortcode( 'button', 'sButton' );
 /* post thumbnail
 	 ========================================================================== */
 function post_img( $size, $id ) {
-	if ( has_post_thumbnail() ) {
+	if ( has_post_thumbnail( $id ) ) {
 		echo get_the_post_thumbnail_url( $id, $size );
 	} else {
 		echo get_stylesheet_directory_uri() . '/img/holder.png';
