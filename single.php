@@ -1,6 +1,6 @@
 <?php get_header();
 global $post; ?>
-<div id="content" class="container row flex">
+<div id="content" class="row flex">
 	<main class="index-main">
 		<h1 class="post-title">
 			<?php the_title(); ?>
@@ -17,7 +17,7 @@ global $post; ?>
 		<?php if ( has_post_thumbnail() ) { ?>
 			<img src="  <?php echo get_the_post_thumbnail_url( get_the_ID(), 'large' ); ?>" alt="">
 		<?php } ?>
-		<div class="wysiwyg">
+		<div class="wys">
 			<?php if ( have_posts() ) :
 				while ( have_posts() ) :
 					the_post();

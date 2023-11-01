@@ -4,8 +4,8 @@ if ( is_home() ) {
 } else {
 	$queryname = 'Archive of ' . get_the_archive_title();
 } ?>
-<div id="content" class="container row index-style flex">
-	<main class="index-main col-9 sm-12 sm-bottom">
+<div id="content" class="row index-style flex">
+	<main class="index-main">
 		<?php if ( is_search() ) { ?>
 			<h1 class="page-title">
 				<?php printf( esc_html__( 'Search Results for: %s' ), '<span>' . get_search_query() . '</span>' ); ?>
@@ -20,7 +20,7 @@ if ( is_home() ) {
 					<a class="post-thumbnail bg-center col-3 sm-12 sm-bottom" href="<?php the_permalink(); ?>" style="background-image:url(
 				<?php echo post_img( 'thumbnail' ); ?>); ">
 					</a>
-					<div class="post-content col-9 sm-12">
+					<div class="post-content">
 						<a title="Read more" class="post-title" href="<?php the_permalink(); ?>">
 							<?php the_title(); ?>
 						</a>
@@ -38,9 +38,9 @@ if ( is_home() ) {
 				</div>
 			<?php endwhile;
 		endif; ?>
-		<?php if ( function_exists( 'wp_pagenavi' ) ) {
-			wp_pagenavi();
-		} ?>
+		<div class="numbered_pagination">
+			<?php numbered_pagination(); ?>
+		</div>
 	</main>
 	<?php get_sidebar(); ?>
 </div>

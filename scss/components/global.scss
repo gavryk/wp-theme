@@ -98,7 +98,7 @@
 	background: $btn;
 	appearance: none;
 	@include transition(all, 0.4s, ease);
-	@include for-size(sm) {
+	@include for-size(480px) {
 		font-size: 14px;
 		padding: 10px 15px;
 	}
@@ -379,7 +379,6 @@ div.wpcf7 form.submitting .wpcf7-spinner {
 		}
 	}
 	.post-thumbnail {
-		min-height: 160px;
 		will-change: opacity;
 		@include shadow(1);
 		&:hover {

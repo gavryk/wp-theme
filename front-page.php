@@ -1,7 +1,7 @@
 <?php get_header();
 global $post; ?>
 <section id="content">
-	<div class="container row">
+	<div class="row">
 		<?php if ( have_posts() ) :
 			while ( have_posts() ) :
 				the_post(); ?>

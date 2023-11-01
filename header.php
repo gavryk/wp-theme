@@ -21,7 +21,7 @@
 <body <?php body_class(); ?>>
 	<div id="wrap">
 		<header class="header">
-			<div class="container row1540 flex v-center">
+			<div class="row1540 flex v-center">
 				<?php $header_logo = get_field( 'header_logo', 'options' );
 				if ( $header_logo ) { ?>
 					<a href="<?php echo site_url(); ?>/" id="logo">
