@@ -15,6 +15,17 @@
 	margin: 0 auto;
 	overflow-x: clip;
 }
+
+.ratio-image {
+	position: relative;
+	width: 100%;
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}
+
 .c {
 	font-size: 0;
 	line-height: 0;
