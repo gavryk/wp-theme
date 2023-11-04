@@ -1,5 +1,4 @@
 @import '_mixins';
-@import '_abstract';
 //web page width
 $md: 960px;
 $sm: 768px;
@@ -44,7 +43,9 @@ $font: 'Montserrat', sans-serif;
 
 /* MAIN  FILES
    ========================================================================== */
+@import 'components/_absctract';
 @import 'components/reset';
 @import 'components/flexo';
 @import 'components/global';
-@import 'components/pages';
+@import 'components/header';
+@import 'components/footer';
