@@ -1,3 +1,4 @@
+//Project Static Containers List
 $baseRows: (
 	row1540: 1540px,
 	row1480: 1480px,
@@ -5,7 +6,7 @@ $baseRows: (
 	row1170: 1170px,
 	row: 1140px,
 );
-
+//Project Static Section Spaces List
 $spaces: (
 	//Margins
 	m-space-sm: 20px 0,
@@ -20,20 +21,20 @@ $spaces: (
 	p-space-xl: 80px 0,
 	p-space-lg: 100px 0
 );
-
+//Static Constant Styles For Container
 %baseRowStyles {
 	margin: 0 auto;
 	max-width: 94%;
 	position: relative;
 }
-
+//Generate Containers Classes From Containers List
 @each $name, $val in $baseRows {
 	.#{$name} {
 		@extend %baseRowStyles;
 		width: #{$val};
 	}
 }
-
+//Generate Space Classes For Sections (with responsive)
 @each $name, $val in $spaces {
 	.#{$name} {
 		@if str-index($name, 'p-') == 1 {
