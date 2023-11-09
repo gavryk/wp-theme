@@ -1,10 +1,21 @@
+//---------------------------------------- Static Data ---------------------------------------------
+$gap-factor: 5;
+$gap-count: 25;
 //Project Static Containers List
 $baseRows: (
 	row1540: 1540px,
 	row1480: 1480px,
 	row1270: 1270px,
+	row1200: 1200px,
 	row1170: 1170px,
 	row: 1140px,
+);
+//Grids Classes
+$grids: (
+	grid-2: repeat(2, 1fr),
+	grid-3: repeat(3, 1fr),
+	grid-4: repeat(4, 1fr),
+	grid-5: repeat(5, 1fr),
 );
 //Project Static Section Spaces List
 $spaces: (
@@ -21,11 +32,32 @@ $spaces: (
 	p-space-xl: 80px 0,
 	p-space-lg: 100px 0
 );
+//----------------------------------------------------------------------------------------------
+//--------------------------------------- Static Shared Styles ---------------------------------
+//Static Constant Styles For Grids
+%baseGridStyles {
+	display: grid;
+}
 //Static Constant Styles For Container
 %baseRowStyles {
 	margin: 0 auto;
 	max-width: 94%;
 	position: relative;
+}
+//----------------------------------------------------------------------------------------------
+//--------------------------------------- Ganarate Classes -------------------------------------
+//Generate Gaps For Grid Classes
+@for $i from 1 through $gap-count {
+	.gap-#{$i} {
+		gap: #{$gap-factor * $i}px;
+	}
+}
+//Generate Grid Classe From Grids
+@each $name, $val in $grids {
+	.#{$name} {
+		@extend %baseGridStyles;
+		grid-template-columns: #{$val};
+	}
 }
 //Generate Containers Classes From Containers List
 @each $name, $val in $baseRows {
@@ -95,3 +127,4 @@ $spaces: (
 		}
 	}
 }
+//----------------------------------------------------------------------------------------------
