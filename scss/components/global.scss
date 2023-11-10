@@ -23,6 +23,11 @@
 	margin-bottom: 0;
 }
 
+.col-fluid {
+	grid-column-start: 1;
+	grid-column-end: -1;
+}
+
 .ratio-image {
 	position: relative;
 	width: 100%;
