@@ -420,8 +420,11 @@ function wpa_title() {
 
 /* Short theme url
 	 ========================================================================== */
-function theme() {
-	return get_stylesheet_directory_uri();
+// function theme() {
+// 	return get_stylesheet_directory_uri();
+// }
+function theme( $filepath = NULL ) {
+	return preg_replace( '(https?://)', '//', get_stylesheet_directory_uri() . ( $filepath ? '/' . $filepath : '' ) );
 }
 
 /* Get Image Size by ID -  echo  image_src( get_field('top_background') , 'medium', true );

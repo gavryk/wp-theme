@@ -6,6 +6,7 @@ define( 'POSTS_PER_PAGE', get_option( 'posts_per_page' ) );
 	 ========================================================================== */
 // Recommended plugins installer
 require_once 'include/plugins/init.php';
+require_once( 'include/wpadmin/admin-addons.php' );
 // Custom functionality
 require_once 'include/core.php';
 require_once 'include/acf/acf-settings.php';
