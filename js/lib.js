@@ -13,6 +13,7 @@
     https://raw.githubusercontent.com/michalsnik/aos/master/dist/aos.js
   ========================================================================== */
 // @formatter:off
+$ = jQuery;
 /*clickOff*/
 $.fn.clickOff = function (callback, selfDestroy) {
 	var clicked = false;

@@ -16,11 +16,11 @@ THEME TWEAKS
 function carc_style_js() {
 	wp_deregister_style( 'contact-form-7' );
 	wp_deregister_style( 'wp-pagenavi' );
-	if ( ! is_admin() ) {
-		wp_deregister_script( 'jquery' );
-		wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' );
-		wp_enqueue_script( 'jquery' );
-	}
+	// if ( ! is_admin() ) {
+	// 	wp_deregister_script( 'jquery' );
+	// 	wp_register_script( 'jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' );
+	// 	wp_enqueue_script( 'jquery' );
+	// }
 	;
 	// wp_enqueue_script('googlemaps', '//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false', array(), '', FALSE);
 	wp_enqueue_script( 'libs', get_template_directory_uri() . '/js/lib.js', array( 'jquery' ), '1.0', true );
