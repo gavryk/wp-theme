@@ -118,12 +118,21 @@ if (!$('body').hasClass('single-product')) {
 // @formatter:on
 $(document).ready(function () {
 	'use strict';
-	$('.mobile_nav')
+	$('.main_nav')
 		.find('.menu-item-has-children>a')
-		.after('<em class="fa fa-angle-down sub-anchor"></em>');
+		.after('<i class="fa-solid fa-chevron-down"></i>');
+
+	$('.mobile-main-menu')
+		.find('.menu-item-has-children>a')
+		.append('<em class="fa fa-angle-down sub-anchor"></em>');
 
 	$('.menu-item-has-children em').click(function (event) {
-		$(this).toggleClass('fa-angle-down fa-angle-up').next().slideToggle('fast');
+		$(this)
+			.toggleClass('fa-angle-down fa-angle-up')
+			.parent()
+			.siblings('.sub-menu')
+			.slideToggle('fast');
+		return false;
 	});
 	/*Contact form7 - close validation error on click*/
 	$(this).on('mouseenter', '.wpcf7-not-valid-tip', function () {
