@@ -407,9 +407,12 @@ function wpa_title() {
 		} elseif ( ( is_single() || is_page() ) && $post->post_parent ) {
 			$parent_title = get_the_title( $post->post_parent );
 			echo wp_title( '-', true, 'right' ) . $parent_title . ' - ';
-		} elseif ( class_exists( 'Woocommerce' ) && is_shop() ) {
-			echo get_the_title( SHOP_ID ) . ' - ';
-		} else {
+		}
+
+		//        elseif ( class_exists( 'Woocommerce' ) && is_shop() ) {
+//			echo get_the_title( SHOP_ID ) . ' - ';
+//		}
+		else {
 			wp_title( '-', true, 'right' );
 		}
 		bloginfo( 'name' );
