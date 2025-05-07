@@ -103,22 +103,27 @@ function content_btn( $attr, $content ) {
 		'link' => site_url(),
 		'data-src' => '',
 		'class' => false,
-		'target' => '_self'
+		'target' => '_self',
+		'icon' => '',
 	), $attr );
 
 	$btn_content = $content ? $content : $attr['text'];
 	$btn_class = $attr['class'] ? ' ' . $attr['class'] : '';
 	$btn_target = $attr['target'] ? 'target="' . $attr['target'] . '"' : '';
 	$btn_rel = $attr['target'] == '_blank' ? 'rel="noopener"' : '';
+	$icon_html = $attr['icon'] ? html_entity_decode( $attr['icon'] ) : '';
 
-	if ( ! ! $attr['data-src'] ) {
-		$result = '<a data-fancybox data-src="' . $attr['data-src'] . '" href="javascript:;" class="btn' . $btn_class . '">' . $btn_content . '</a>';
+	if ( ! empty( $attr['data-src'] ) ) {
+		$result = '<a data-fancybox data-src="' . esc_url( $attr['data-src'] ) . '" href="javascript:;" class="btn' . esc_attr( $btn_class ) . '">' . $icon_html . '<span>' . $btn_content . '</span></a>';
 	} else {
-		$result = '<a href="' . $attr['link'] . '" ' . $btn_rel . ' class="btn' . $btn_class . '" ' . $btn_target . '>' . $btn_content . '</a>';
+		$result = '<a href="' . esc_url( $attr['link'] ) . '" ' . $btn_rel . ' class="btn' . esc_attr( $btn_class ) . '" ' . $btn_target . '>' . $icon_html . '<span>' . $btn_content . '</span></a>';
 	}
 
 	return $result;
+
 }
+
+add_shortcode( "button", "content_btn" );
 
 add_shortcode( "button", "content_btn" );
 
