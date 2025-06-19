@@ -98,32 +98,47 @@ function numbered_pagination() {
 // or [button link='URL' target='_blank' class='CLASS']TEXT[/button]
 // or fancybox [button data-src='URL' text='TEXT' class='CLASS']
 function content_btn( $attr, $content ) {
-	$attr = shortcode_atts( array(
+	$defaults = array(
 		'text' => 'Read More',
 		'link' => site_url(),
 		'data-src' => '',
 		'class' => false,
 		'target' => '_self',
 		'icon' => '',
-	), $attr );
+		'data-type' => '',
+	);
 
-	$btn_content = $content ? $content : $attr['text'];
+	$attr = shortcode_atts( $defaults, $attr );
+
 	$btn_class = $attr['class'] ? ' ' . $attr['class'] : '';
-	$btn_target = $attr['target'] ? 'target="' . $attr['target'] . '"' : '';
-	$btn_rel = $attr['target'] == '_blank' ? 'rel="noopener"' : '';
+	$btn_target = $attr['target'] ? 'target="' . esc_attr( $attr['target'] ) . '"' : '';
+	$btn_rel = $attr['target'] === '_blank' ? 'rel="noopener"' : '';
 	$icon_html = $attr['icon'] ? html_entity_decode( $attr['icon'] ) : '';
+	$btn_content = $content ? $content : $attr['text'];
 
-	if ( ! empty( $attr['data-src'] ) ) {
-		$result = '<a data-fancybox data-src="' . esc_url( $attr['data-src'] ) . '" href="javascript:;" class="btn' . esc_attr( $btn_class ) . '">' . $icon_html . '<span>' . $btn_content . '</span></a>';
+	$extra_attrs = '';
+	foreach ( $attr as $key => $value ) {
+		if ( in_array( $key, array_keys( $defaults ) ) ) {
+			continue;
+		}
+		if ( $value === '' ) {
+			$extra_attrs .= ' ' . esc_attr( $key );
+		} else {
+			$extra_attrs .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
+		}
+	}
+
+	if ( isset( $attr['data-type'] ) && $attr['data-type'] === 'iframe' ) {
+		$href = ! empty( $attr['data-src'] ) ? esc_url( $attr['data-src'] ) : esc_url( $attr['link'] );
+		$result = '<a href="' . $href . '" data-fancybox class="btn' . esc_attr( $btn_class ) . '" data-type="iframe"' . $extra_attrs . '>' . $icon_html . '<span>' . $btn_content . '</span></a>';
+	} elseif ( ! empty( $attr['data-src'] ) ) {
+		$result = '<a data-fancybox data-src="' . esc_url( $attr['data-src'] ) . '" href="javascript:;" class="btn' . esc_attr( $btn_class ) . '"' . $extra_attrs . '>' . $icon_html . '<span>' . $btn_content . '</span></a>';
 	} else {
-		$result = '<a href="' . esc_url( $attr['link'] ) . '" ' . $btn_rel . ' class="btn' . esc_attr( $btn_class ) . '" ' . $btn_target . '>' . $icon_html . '<span>' . $btn_content . '</span></a>';
+		$result = '<a href="' . esc_url( $attr['link'] ) . '" ' . $btn_rel . ' class="btn' . esc_attr( $btn_class ) . '" ' . $btn_target . $extra_attrs . '>' . $icon_html . '<span>' . $btn_content . '</span></a>';
 	}
 
 	return $result;
-
 }
-
-add_shortcode( "button", "content_btn" );
 
 add_shortcode( "button", "content_btn" );
 
